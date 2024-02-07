@@ -40,6 +40,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         return new NotesViewHolder(view);
     }
 
+    //Работа с эл-ми
     @Override
     public void onBindViewHolder(NotesViewHolder viewHolder, int position) {
         Note note = notes.get(position);
@@ -84,6 +85,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         }
     }
 
+    //интерфейс слущатель клика
     interface OnNoteClickListener{
         void onNoteClick(Note note);
     }
