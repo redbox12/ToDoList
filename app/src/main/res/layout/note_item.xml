@@ -9,8 +9,7 @@
     android:padding="20dp"
     android:textColor="@color/white"
     android:layout_margin="10dp"
-    tools:background="@android:color/holo_green_light"
+    tools:background="@drawable/layout_green_bg"
     >
-
 
 </TextView>

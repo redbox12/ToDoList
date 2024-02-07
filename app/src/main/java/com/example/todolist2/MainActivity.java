@@ -2,6 +2,7 @@ package com.example.todolist2;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +17,8 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private FloatingActionButton addNoteButton;
-    private LinearLayout linearNotes;
+    private RecyclerView recyclerViewNotes;
+    private NotesAdapter notesAdapter;
     private Database database = Database.getInstance();
 
 
@@ -27,6 +29,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initeViews();
 
+        notesAdapter = new NotesAdapter();
+        notesAdapter.setOnNoteClickListener(new NotesAdapter.OnNoteClickListener() {
+            @Override
+            public void onNoteClick(Note note) {
+                database.remove(note.getId());
+                showNotes();
+            }
+        });
+        recyclerViewNotes.setAdapter(notesAdapter);
+
         addNoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,47 +47,20 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void initeViews() {
+        addNoteButton = findViewById(R.id.addNoteButton);
+        recyclerViewNotes = findViewById(R.id.recyclerViewNotes);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         showNotes();
+        recyclerViewNotes = findViewById(R.id.recyclerViewNotes);
     }
 
     private void showNotes() {
-        linearNotes.removeAllViews();
-        for(Note note: database.getNotes()){
-            View view = getLayoutInflater().inflate(
-                    R.layout.note_item,
-                    linearNotes,
-                    false
-            );
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    database.remove(note.getId());
-                    showNotes();
-                }
-            });
-            TextView textViewNote = view.findViewById(R.id.textViewNote);
-            textViewNote.setText(note.getText());
-
-            int colorResId;
-            switch (note.getPriority()){
-                case 0:
-                    colorResId = android.R.color.holo_green_light;
-                    break;
-                case 1:
-                    colorResId = android.R.color.holo_orange_light;
-                    break;
-                default:
-                    colorResId = android.R.color.holo_red_light;
-            }
-
-            int color = ContextCompat.getColor(this, colorResId); //получение color по id
-            textViewNote.setBackgroundColor(color);
-            linearNotes.addView(view);
-        }
-
+        notesAdapter.setNotes(database.getNotes());
     }
 
     private void launchNextScreen() {
@@ -83,9 +68,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-    private void initeViews() {
-        addNoteButton = findViewById(R.id.addNoteButton);
-        linearNotes = findViewById(R.id.linearNotes);
-    }
 }

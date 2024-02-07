@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="300dp"
         android:hint="@string/enter_note"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +31,7 @@
             android:id="@+id/lowNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_green_light"
+            android:background="@drawable/layout_green_bg"
             android:paddingRight="10dp"
             android:text="@string/low"
             android:textColor="@color/white" />
@@ -40,18 +40,19 @@
             android:id="@+id/mediumNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_orange_light"
+            android:background="@drawable/layout_yellow_bg"
             android:checked="true"
             android:paddingHorizontal="10dp"
             android:text="@string/medium"
+            android:layout_marginHorizontal="15dp"
             android:textColor="@color/white" />
 
         <RadioButton
             android:id="@+id/highNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_red_light"
-            android:paddingRight="10dp"
+            android:background="@drawable/layout_red_bg"
+            android:paddingHorizontal="10dp"
             android:text="@string/high"
             android:textColor="@color/white" />
     </RadioGroup>

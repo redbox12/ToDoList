@@ -21,7 +21,11 @@ public class Database {
     }
 
     private Database() {
-
+        Random random = new Random();
+        for(int i =0; i<20; i++){
+            Note noteObj = new Note(i, "Заметка №" + i, random.nextInt(3));
+            add(noteObj);
+        }
     }
     public void add(Note note){
         notes.add(note);
